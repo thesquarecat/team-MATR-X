@@ -6,14 +6,17 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import org.json.JSONObject;
 import org.json.JSONArray;
-
+import io.github.cdimascio.dotenv.Dotenv;
     
 
 public class MathProblemGenerator {
 
     // Your Gemini API Key should be set as an environment variable
-    private static final String API_KEY = System.getenv("GEMINI_API_KEY");
-    private static final String API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent";
+    Dotenv dotenv = Dotenv.configure()
+    .directory("./") // specify the directory where your .env file is located
+    .load();
+     private static final String API_KEY = System.getenv("GEMINI_API_KEY");
+    private static final String API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent";
 
     /**
      * Generates a math problem using the Gemini API.
