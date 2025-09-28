@@ -6,15 +6,16 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import org.json.JSONObject;
 import org.json.JSONArray;
-import io.github.cdimascio.dotenv.Dotenv;
+
+
     
 
 public class MathProblemGenerator {
 
     // Your Gemini API Key should be set as an environment variable
-    Dotenv dotenv = Dotenv.configure()
-    .directory("./") // specify the directory where your .env file is located
-    .load();
+    
+     // specify the directory where your .env file is located
+    
      private static final String API_KEY = System.getenv("GEMINI_API_KEY");
     private static final String API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent";
 
@@ -33,9 +34,12 @@ public class MathProblemGenerator {
 
         // 1. Construct the prompt for the AI model
         String prompt = String.format(
-            "Generate one math problem of the type '%s' suitable for a '%s' student. " +
-            "First, state the problem clearly. Then, on a new line, provide a detailed, " +
-            "step-by-step solution under a 'Solution:' heading.",
+             "Generate one math problem of the type '%s' for a '%s' student. " +
+            "Create a JSON object with three keys: " +
+            "1. 'problem': A string containing the question. " +
+            "2. 'answers': A JSON array of 4 string options. One is the correct answer, and the other three are plausible incorrect answers. " +
+            "3. 'correctIndex': An integer from 0 to 3 indicating the index of the correct answer in the 'answers' array. " +
+            "Do not include any text outside of the JSON object.",
             problemType, gradeLevel
         );
 
